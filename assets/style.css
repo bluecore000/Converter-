@@ -1,0 +1,23 @@
+header {
+	height: 80px;
+	width: 100%;
+	text-align: center;
+	background: #2f2321;
+	box-shadow: 0 0 20px #222;
+}
+header h4 {
+	line-height: 70px;
+	color: #e8d7d7;
+}
+.wrapper {
+	background: url('log.jpg');
+	box-shadow: 0 3px 15px #111;
+	color: #fff;
+}
+#table {
+	background: rgba(16, 7, 7, 0.85);
+	box-shadow: 0 0 25px #111 inset;
+}
+sub {
+    top: -0.5em;
+}

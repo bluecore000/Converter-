@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="assets/bootstrap.css">
+	<link rel="stylesheet" href="assets/style.css">
+	<script src="assets/jquery.js"></script>
+</head>
+<body>
+	<header>
+		<h4>Calculate Wood in KB</h4>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<form action="" name="myform" id="myform" >
+					<div class="wrapper">
+							
+						<table class="table" id="table">
+							<tr>
+								<td><label for="">Enter B in (inch) :  </label></td>
+								<td><input type="number" min="0" class="b"></td>
+								<td>
+									<select name="" id="b">
+										<option value="12" selected="selected">Inch</option>
+										<option value="144">Fth</option>
+										<option value="39">Meter</option>
+									</select>
+								
+								</td>
+							</tr>					
+							<tr>
+								<td><label for="">Enter H in (inch) : </label></td>
+								<td><input type="number" min="0" class="h"></td>
+								<td>
+									<select name="" id="h">
+										<option value="12" selected="selected">Inch</option>
+										<option value="144">Fth</option>
+										<option value="39">Meter</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td><label for="">Enter L in (Fth) : </label></td>
+								<td><input type="number" min="0" class="l"></td>
+								<td>
+									<select name="" id="l">
+										<option value="12">Inch</option>
+										<option value="144" selected="selected">Fth</option>
+										<option value="39">Meter</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td><label for="">Price Per KB </label></td>
+								<td><input type="number" min="0" class="p"></td>
+								<td></td>
+							</tr>					
+							<tr>
+								<td  colspan="3"><label for="">Lumber volume (in ft<sub>3</sub>	) :</label> &nbsp;<strong class="kb" id="kb"></strong> cft</td>
+							</tr>
+							<tr>
+								<td colspan="3"><label for="">Price :</label> &nbsp;<strong class="price" id="price"></strong></td>				
+							</tr>
+							<tr>
+								<td class="res"></td>
+							</tr>
+							<tr>
+								<td>
+									<button type="button" id="Ans">Convert</button>
+								</td>
+							</tr>			
+						</table>
+
+					</div>
+				</form>
+			</div>
+			
+		</div>
+		
+	</div>
+	<script>
+		$("#Ans").click(function() {
+
+			//var opt = document.getElementById("l");	
+			//var value = opt.options[opt.selectedIndex].value;
+			//var length = opt.length;
+			var optl = $('#l :selected').val();
+			var optb = $('#b :selected').val();
+			var opth = $('#h :selected').val();
+			var i = 12;
+			var f = 144;
+			var m = 39;
+			    
+			var l=$('.l').val();
+			var b=$('.b').val();
+			var h=$('.h').val();
+			var p=$('.p').val();
+			if(l == '' && b == '' && h =='') {
+				alert("Please, Enter Both Value");
+			}	
+			else if (optl==i && optb==i && opth==i) {					
+					var len_to_inch = l/12/144;	
+					var result = len_to_inch*b*h;				
+					var price = result*p;				
+					disp();
+			}
+
+			else if((optl==i && optb==i && opth==f) || (optl==f && optb==i && opth==i) || (optl==i && optb==f && opth==i)) {
+				var value = l*b*h;	
+				var kb = value/144*100;
+				var result = kb/100;
+				var price = result*p;	
+				disp();
+			}
+			else if((optl==f && optb==f && opth==i) || (optl==f && optb==i && opth==f) || (optl==i && optb==f && opth==f)) {
+				if(opth==i) {
+					var l_into_ft = h/12;
+					var result = l*b*l_into_ft;
+					var price = result*p;	
+					disp();
+				}
+				else if(optb==i) {
+					var l_into_ft = b/12;
+					var result = l*h*l_into_ft;
+					var price = result*p;	
+					disp();
+				}
+				else if(optl==i) {
+					var l_into_ft = l/12;
+					var result = b*h*l_into_ft;
+					var price = result*p;	
+					disp();					
+				}
+			}
+			else if(optl==f && optb==f && opth==f) {
+				var result = l*b*h;
+				var price = result*p;	
+				disp();
+			}			
+			else if ((optb==m && opth==f && optl==f)|| (optb==f && opth==m && optl==f) || (optb==f && opth==f && optl==m) ) {
+				if (optb==m) {
+					var len_to_f = b*3.28084;
+					var result = len_to_f*h*l;				
+					var price = result*p;		
+					disp();
+				}
+				else if (opth==m) {
+					var len_to_f = h*3.28084;
+					var result = len_to_f*b*l;				
+					var price = result*p;			
+					disp();
+				}
+				else if (optl==m) {
+					var len_to_f = l*3.28084;
+					var result = len_to_f*b*h;				
+					var price = result*p;		
+					disp();
+				}
+			}		
+			else if ((optb==m && opth==m && optl==f)|| (optb==f && opth==m && optl==m) || (optb==m && opth==f && optl==m) ) {
+				if (optb==f) {
+					var result = b*h*3.28084*l*3.28084;				
+					var price = result*p;			
+					disp();
+				}
+				else if (opth==f) {
+					var result = h*b*3.28084*l*3.28084;				
+					var price = result*p;
+					disp();
+				}
+				else if (optl==f) {
+					var result = l*h*3.28084*b*3.28084;				
+					var price = result*p;		
+					disp();
+				}
+			}
+			else if ((optb==i && opth==i && optl==m) || (optb==i && opth==m && optl==i) || (optb==m && opth==i && optl==i)) {
+				if(optl==m) {
+					var len_to_m = l*3.28084/144;
+					var result = len_to_m*b*h;				
+					var price = result*p;	
+					disp();
+				}
+				else if (opth==m) {
+					var len_to_m = h*3.28084/144;
+					var result = len_to_m*b*l;				
+					var price = result*p;			
+					disp();
+				}
+				else if (optb==m) {
+					var len_to_m = b*3.28084/144;
+					var result = len_to_m*h*l;				
+					var price = result*p;		
+					disp();
+				}
+			}
+			else if(optl==m && optb==m && opth==m) {
+				var result = l*3.280839895*b*3.280839895*h*3.280839895;
+				var price = result*p;	
+				disp();
+			}	
+			else if ((optb==i && opth==m && optl==m) || (optb==m && opth==i && optl==m) || (optb==m && opth==m && optl==i)) {
+				if(optl==i) {
+					var len_to_m = l/12;
+					var result = len_to_m*b*3.28084*h*3.28084;				
+					var price = result*p;			
+					disp();
+				}
+				else if (opth==i) {
+					var len_to_m = h/12;
+					var result = len_to_m*b*3.28084*l*3.28084;				
+					var price = result*p;		
+					disp();
+				}
+				else if (optb==i) {
+					var len_to_m = b/12;
+					var result = len_to_m*l*3.28084*h*3.28084;			
+					var price = result*p;
+					disp();
+				}
+			}
+			
+		// cpy();
+		// function cpy() {
+		// 	var hh = $('#table').html();
+		// 	document.getElementById("new").innerHTML= hh;
+		// 	console.log(hh);
+		// }
+		function disp() {
+			$("<p>"+
+				</p>+").appendTo(".res");
+			// document.getElementById("kb").innerHTML= result;
+			// document.getElementById("price").innerHTML= price;
+		}
+
+	});
+	</script>
+</body>
+</html>
